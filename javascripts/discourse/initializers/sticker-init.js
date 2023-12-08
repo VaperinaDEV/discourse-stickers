@@ -41,12 +41,10 @@ export default {
             modal.show(StickerModal, {
               model: {
                 customPickHandler: (message) => {
-                  api.sendChatMessage(this.currentMessage.channel.id, {
+                  api.sendChatMessage(this.draft.channel.id, {
                     message,
                     threadId:
-                      context === "thread"
-                        ? this.currentMessage.thread.id
-                        : null,
+                      context === "thread" ? this.draft.thread.id : null,
                   });
                 },
               },
