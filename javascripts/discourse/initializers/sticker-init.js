@@ -37,8 +37,7 @@ export default {
 
           @action
           showChatStickerModal(context) {
-            const modal = api.container.lookup("service:modal");
-            modal.show(StickerModal, {
+            this.modal.show(StickerModal, {
               model: {
                 customPickHandler: (message) => {
                   api.sendChatMessage(this.draft.channel.id, {
