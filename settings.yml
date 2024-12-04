@@ -27,13 +27,13 @@ sticker_images:
     
 composer_icon:
   type: string
-  default: "far-sticky-note"
+  default: "far-note-sticky"
   description: "Add icon to Sticker composer button."
 svg_icons: 
-  default: "far-sticky-note"
+  default: "far-note-sticky"
   type: "list"
   list_type: "compact"
-  description: "List of FontAwesome 5 icons used in this theme component"
+  description: "List of FontAwesome 6 icons used in this theme component"
 stickers_shadow:
   type: bool
   default: true
