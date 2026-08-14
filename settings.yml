@@ -1,36 +1,39 @@
 sticker_images:
-  default: >-
-    []
-  json_schema: >-
-    {
-      "type": "array",
-      "uniqueItems": true,
-      "items": {
-        "type": "object",
-        "properties": {
-          "title": {
-            "type": "string"
-          },
-          "emoji": {
-            "type": "string"
-          },
-          "previewUrl": {
-            "type": "string"
-          },
-          "markdownUrl": {
-            "type": "string"
-          }
-        },
-        "additionalProperties": false
-      }
-    }
-    
+  type: objects
+  default: []
+  schema:
+    name: sticker
+    identifier: title
+    properties:
+      title:
+        type: string
+        required: true
+        validations:
+          max_length: 100
+      pack:
+        type: string
+        validations:
+          max_length: 50
+      emoji:
+        type: string
+        validations:
+          max_length: 60
+      image:
+        type: upload
+        required: true
+      categories:
+        type: categories
+      chat_hide_from_private:
+        type: boolean
+      chat_channels:
+        type: string
+
 composer_icon:
   type: string
   default: "far-note-sticky"
   description: "Add icon to Sticker composer button."
 svg_icons: 
-  default: "far-note-sticky"
+  default: "far-note-sticky|note-sticky"
   type: "list"
   list_type: "compact"
   description: "List of FontAwesome 6 icons used in this theme component"

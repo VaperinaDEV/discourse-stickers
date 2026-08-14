@@ -37,8 +37,11 @@ export default {
 
           @action
           showChatStickerModal(context) {
+            const channel = this.draft.channel;
             this.modal.show(StickerModal, {
               model: {
+                isPrivateChannel: !!channel?.isDirectMessageChannel,
+                channelId: channel?.id,
                 customPickHandler: (message) => {
                   api.sendChatMessage(this.draft.channel.id, {
                     message,
