@@ -1,3 +1,16 @@
+.sticker-pack-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em;
+  margin-bottom: 1.5em;
+  padding-bottom: 1em;
+  border-bottom: 1px solid var(--primary-low);
+  position: sticky;
+  top: 0;
+  background: var(--secondary);
+  z-index: 1;
+}
+
 .sticker-pack {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -28,12 +41,6 @@
       @if $stickers_shadow == "true" {
         filter: drop-shadow(2px 2px 2px rgba(var(--always-black-rgb), 0.8));
       }
-      &.picked {
-        animation: picked 0.45s;
-        @media (prefers-reduced-motion) {
-          animation-duration: 0s;
-        }
-      }
     }
     span.emoji-alt {
       position: absolute;
@@ -43,6 +50,25 @@
       line-height: 1;
       pointer-events: none;
     }
+  }
+}
+
+.sticker-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75em;
+  padding: 3em 1.5em;
+  text-align: center;
+  color: var(--primary-medium);
+  .d-icon {
+    width: 2.5em;
+    height: 2.5em;
+    color: var(--primary-low-mid);
+  }
+  p {
+    margin: 0;
+    max-width: 22em;
   }
 }
 
@@ -60,6 +86,8 @@
     display: none;
   }
   a.lightbox {
+    pointer-events: none;
+
     .discourse-touch & {
       -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
       transition: filter 200ms;
@@ -85,14 +113,8 @@
   }
 }
 
-@keyframes picked {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(0.85);
-  }
-  100% {
-    transform: scale(1);
-  }
+/* Chat stickers are rendered without the [wrap=sticker] wrapper. */
+.chat-message-text img[alt^="sticker:"] {
+  pointer-events: none;
+  cursor: default;
 }

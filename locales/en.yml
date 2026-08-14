@@ -2,3 +2,33 @@ en:
   sticker:
     modal_title: "Stickers"
     composer_title: "Add Sticker"
+    empty_state: "No stickers are available in this category yet."
+    filter_all: "All"
+    filter_other: "Other"
+  theme_metadata:
+    settings:
+      sticker_images:
+        description: "The list of stickers available in the picker. Click 'Add' to create a new sticker, upload its image, and give it a title."
+        schema:
+          properties:
+            title:
+              label: "Title"
+              description: "Shown as the sticker's tooltip/alt text."
+            pack:
+              label: "Group"
+              description: "Optional. Stickers sharing the same group name can be filtered together at the top of the picker. Leave empty to leave the sticker ungrouped (shown under \"Other\")."
+            emoji:
+              label: "Emoji badge"
+              description: "Optional small emoji shown in the corner of the sticker. You can paste an actual emoji, or type a shortcode like :heart: or :smile:."
+            image:
+              label: "Image"
+              description: "Upload the sticker image (used for both the picker preview and the posted sticker)."
+            categories:
+              label: "Categories"
+              description: "Optional. If set, this sticker only appears in the post/reply composer when one of these categories is selected. Leave empty to make it available in the composer for every category. Doesn't affect chat - see the chat settings below."
+            chat_hide_from_private:
+              label: "Hide from direct messages"
+              description: "If checked, this sticker will NOT be available in private (direct message) chats. Leave unchecked (the default) to allow it there."
+            chat_channels:
+              label: "Chat channels"
+              description: "Optional. Comma-separated list of chat channel IDs (found in the channel's URL, e.g. /chat/c/channel-name/123 → 123) where this sticker is available. Leave empty to make it available in every public/category chat channel. Doesn't affect direct messages - see the setting above."
