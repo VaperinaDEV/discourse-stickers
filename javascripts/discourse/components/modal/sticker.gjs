@@ -20,7 +20,6 @@ export default class Stickers extends Component {
   @service capabilities;
   @service composer;
 
-
   get isChatContext() {
     return !!this.args.model?.customPickHandler;
   }
@@ -128,11 +127,44 @@ export default class Stickers extends Component {
     this.selectedPack = packValue;
   }
 
+  base62Sha1(sha1) {
+    const alphabet =
+      "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    let value = BigInt(`0x${sha1}`);
+    let encoded = "";
+
+    while (value > 0n) {
+      encoded = alphabet[Number(value % 62n)] + encoded;
+      value /= 62n;
+    }
+
+    return encoded;
+  }
+
+  discourseUploadShortUrl(imageUrl) {
+    try {
+      const url = new URL(imageUrl);
+      const match = url.pathname.match(
+        /\/(?:optimized|original)\/(.+\/)([a-f0-9]{40})(?:_[^/]+)?(\.[^/?#]+)$/i
+      );
+
+      if (match) {
+        const [, , sha1, extension] = match;
+        return `upload://${this.base62Sha1(sha1)}${extension}`;
+      }
+    } catch {
+      // Fall back to the hydrated upload URL if it cannot be converted.
+    }
+
+    return imageUrl;
+  }
+
   @action
   pick(sticker) {
     const stickerAlt = `sticker:${sticker.title}`;
-    const markupComposer = `\n[wrap=sticker]![${sticker.title}|180x180](${sticker.image})[/wrap]\n`;
-    const markupChatComposer = `\n![${stickerAlt}|180x180](${sticker.image})\n`;
+    const imageUrl = this.discourseUploadShortUrl(sticker.image);
+    const markupComposer = `\n[wrap=sticker]![${sticker.title}|180x180](${imageUrl})[/wrap]\n`;
+    const markupChatComposer = `\n![${stickerAlt}|180x180](${imageUrl})\n`;
 
     if (this.args.model?.customPickHandler) {
       this.args.model.customPickHandler(markupChatComposer);
